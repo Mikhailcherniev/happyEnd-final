@@ -287,6 +287,9 @@ input:checked + label .description {
         right: -6px;
         top: -26px;
     }
+
+    .card {
+        opacity: 1;
+    }
+
 }
-
-
