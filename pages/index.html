@@ -38,8 +38,8 @@
     <div class="header">
         <h1 class="tituloHeader">Happy<span class="red">End</span></h1>
         <div class="nav-links nav-linksHeader">
-            <a href="#dataEventos-section">Datas</a>
             <a href="#projetos">Projetos</a>
+            <a href="#dataEventos-section">Datas</a>
             <a href="#professores-section">Professores</a>
             <a href="#location">Localização</a>
         </div>
@@ -67,16 +67,6 @@
             </a>
         </section>
 
-        <!-- <section id="video" class="video-wrapper">
-            <iframe id="youtubeVideo" src="https://www.youtube.com/embed/GB4PyMfl8QA?si=-vslKi2rVu5z-h1l"
-                title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-            </iframe>
-        </section> -->
-
-
-
         <!-- projetos -->
         <section id="projetos">
             <h1 class="projetosTitle poppinsBold">Projetos</h1>
@@ -90,7 +80,7 @@
 
                 <span id="dayLabel">Dia1</span>
 
-                <div class="caroussel-container">
+                <div class="caroussel-container" id="carrousselIdBase">
                     <input type="radio" name="slide" id="c1" checked>
                     <label for="c1" class="card"></label>
                     <input type="radio" name="slide" id="c2">
@@ -110,93 +100,78 @@
                 </div>
             </div>
 
-
-
-
-            <!-- calendário datas eventos -->
-            <section id="dataEventos-section" class="calendarBase">
-
-                <div class="titleSection">
-                    <div class="titleSVG-align">
-                        <p class="tituloInfo">Informações da</p>
-                    </div>
-
-
-
-                    <svg class="linhasSVG linhasSVG-horizontal" width="100%">
-                        <!-- SVGs funcionam através de coordenadas xy inicio - xy fim -->
-                        <line x1="0%" y1="0" x2="35%" y2="0" style="stroke:#fff;stroke-width:2" />
-                        <line x1="65%" y1="0" x2="100%" y2="0" style="stroke:#fff;stroke-width:2" />
-                    </svg>
-                </div>
-
-
-
-
-                <div class="calendarDaysSVG-alignment">
-                    <svg class="linhasSVG-vertical" width="50" height="550">
-                        <!-- Linha vertical no lado esquerdo -->
-                        <line x1="0%" y1="0" x2="0%" y2="90%" style="stroke:#fff;stroke-width:2" />
-                        <line x1="0%" y1="90%" x2="100%" y2="90%" style="stroke:#fff;stroke-width:2" />
-                    </svg>
-
-
-                    <div class="calendarMainContent">
-                        <div class="titleSVG-align">
-                            <h1 class="poppinsBold">Apresentação</h1>
-                        </div>
-                        <div class="calendarContainer">
-                            <div class="calendarBox calendarBoxLeft">
-                                <div class="boxSalaCalendar">
-                                    <h3 class="classe">Parte 1</h3>
-                                </div>
-
-                                <div class="dataContainer">
-                                    <h1 class="data">03</h1>
-                                    <div class="mes">
-                                        <h3 class="dezembro">De Dezembro</h3>
-                                    </div>
-                                </div>
-
-                                <button class="btn">
-                                    <img src="../images/icons/iconCalendario.png" class="iconInvert">
-                                    <p class="txtBtn">Agendar Evento</p>
-                                </button>
-                            </div>
-
-                            <div class="calendarBox calendarBoxRight">
-                                <div class="boxSalaCalendar">
-                                    <h3 class="classe">Parte 2</h3>
-                                </div>
-                                <div class="dataContainer">
-                                    <h1 class="data">10</h1>
-                                    <div class="mes">
-                                        <h3 class="dezembro">De Dezembro</h3>
-                                    </div>
-                                </div>
-
-                                <button class="btn">
-                                    <img src="../images/icons/iconCalendario.png" class="iconInvert">
-                                    <p class="txtBtn">Agendar Evento</p>
-                                </button>
-
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <svg class="linhasSVG linhasSVG-vertical" width="50" height="550">
-                        <!-- Linha vertical no lado direito -->
-                        <line x1="100%" y1="0" x2="100%" y2="90%" style="stroke:#fff;stroke-width:2" />
-                        <line x1="0%" y1="90%" x2="100%" y2="90%" style="stroke:#fff;stroke-width:2" />
-                    </svg>
-                </div>
-            </section>
-
-
             <div id="fullscreenOverlay" class="fullscreen-overlay">
                 <button id="closeFullscreen" class="close-fullscreen">×</button>
                 <img id="fullscreenImage" class="fullscreen-image" src="" alt="Imagem em tela cheia">
+            </div>
+        </section>
+
+        <!-- calendário datas eventos -->
+        <section id="dataEventos-section" class="calendarBase">
+
+            <div class="titleSection">
+                <div class="titleSVG-align">
+                    <p class="tituloInfo">Informações da</p>
+                </div>
+
+
+
+                <svg class="linhasSVG linhasSVG-horizontal" width="100%">
+                    <!-- SVGs funcionam através de coordenadas xy inicio - xy fim -->
+                    <line x1="0%" y1="0" x2="35%" y2="0" style="stroke:#fff;stroke-width:2" />
+                    <line x1="65%" y1="0" x2="100%" y2="0" style="stroke:#fff;stroke-width:2" />
+                </svg>
+            </div>
+
+
+
+
+            <div class="calendarDaysSVG-alignment">
+                <svg class="linhasSVG-vertical" width="50" height="550">
+                    <!-- Linha vertical no lado esquerdo -->
+                    <line x1="0%" y1="0" x2="0%" y2="75%" style="stroke:#fff;stroke-width:2" />
+                    <line x1="0%" y1="75%" x2="100%" y2="75%" style="stroke:#fff;stroke-width:2" />
+                </svg>
+
+
+                <div class="calendarMainContent">
+                    <div id="titleApresArea" class="titleSVG-align">
+                        <h1 id="apresTitle" class="poppinsBold">Apresentação</h1>
+                    </div>
+                    <div class="calendarContainer">
+                        <div class="calendarBox calendarBoxLeft">
+                            <div class="boxSalaCalendar">
+                                <h3 class="classe">Parte 1</h3>
+                            </div>
+
+                            <div class="dataContainer">
+                                <h1 class="data">03</h1>
+                                <div class="mes">
+                                    <h3 class="dezembro">De Dezembro</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="calendarBox calendarBoxRight">
+                            <div class="boxSalaCalendar">
+                                <h3 class="classe">Parte 2</h3>
+                            </div>
+                            <div class="dataContainer">
+                                <h1 class="data">10</h1>
+                                <div class="mes">
+                                    <h3 class="dezembro">De Dezembro</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <svg class="linhasSVG linhasSVG-vertical" width="50" height="550">
+                    <!-- Linha vertical no lado direito -->
+                    <line x1="100%" y1="0" x2="100%" y2="75%" style="stroke:#fff;stroke-width:2" />
+                    <line x1="0%" y1="75%" x2="100%" y2="75%" style="stroke:#fff;stroke-width:2" />
+                </svg>
             </div>
         </section>
 
@@ -207,7 +182,17 @@
             <div class="professoresContainer">
 
                 <div class="professor">
-                    <img class="imgProfessor" src="../images/templateProfessor.png">
+                    <img class="imgProfessor" src="../images/marcelo.png">
+
+                    <div class="infoBox-professor">
+                        <div class="infos-professor">
+                            <p class="txtBtn">Marcelo Alves</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="professor">
+                    <img class="imgProfessor" src="../images/juliana.png">
 
                     <div class="infoBox-professor">
                         <div class="infos-professor">
@@ -217,7 +202,7 @@
                 </div>
 
                 <div class="professor">
-                    <img class="imgProfessor" src="../images/templateProfessor.png">
+                    <img class="imgProfessor" src="../images/marcos.png">
 
                     <div class="infoBox-professor">
                         <div class="infos-professor">
@@ -226,27 +211,13 @@
                     </div>
                 </div>
 
-                <div class="professor">
-                    <img class="imgProfessor" src="../images/templateProfessor.png">
-
-                    <div class="infoBox-professor">
-                        <div class="infos-professor">
-                            <p class="txtBtn">Marcelo Alves</p>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </section>
-
-
-
-
 
         <!-- localização -->
         <section id="location">
             <div id="locationInfo">
-                <h2 id="ourLocationTitle">Dias 03 e 06 de Dezembro</h2>
+                <h2 id="ourLocationTitle">Dias 03 e 10 de Dezembro</h2>
                 <p class="text27">SESI CE-240<br>Ferraz de Vasconcelos
                 </p>
                 <button class="btn" id="copyAdress">
@@ -283,8 +254,8 @@
                 <p class="poppinsLight">Seções</p>
 
                 <div class="nav-links footerLinks">
+                    <a href="#projetos">Projetos</a>
                     <a href="#dataEventos-section">Datas</a>
-                    <a href="#projetos-section">Projetos</a>
                     <a href="#professores-section">Professores</a>
                     <a href="#location">Localização</a>
                 </div>

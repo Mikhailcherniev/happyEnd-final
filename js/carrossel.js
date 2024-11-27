@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const firstCard = cards[0];
     const instructionOverlay = document.createElement("div");
     instructionOverlay.className = "instruction-overlay";
-    instructionOverlay.innerHTML = `
+    instructionOverlay.innerHTML = `  
         <p>Clique nos cards para visualizar</p><br>
         <p>Clique duas vezes para ativar o modo de tela cheia</p>
     `;
@@ -29,23 +29,50 @@ document.addEventListener("DOMContentLoaded", () => {
         card.addEventListener("click", removeInstructions);
     });
 
-    // Função para atualizar os cards visíveis
-    const updateVisibleCards = () => {
-        const totalCards = isDayTwo ? 8 : 6;
-        cards.forEach((card, index) => {
-            card.style.display = index < totalCards ? "flex" : "none";
-            // Adicionar ou remover a classe day2
-            card.classList.toggle("day2", isDayTwo);
-            card.classList.toggle("day1", !isDayTwo);
-        });
-    };
+    const carrousselIdBase = document.getElementById("carrousselIdBase");
+
+const updateVisibleCards = () => {
+    const totalCards = isDayTwo ? 8 : 6;
+
+    // Atualiza a largura do carrousselIdBase com base no dia e largura da tela
+    if (carrousselIdBase) {
+        if (isDayTwo && window.innerWidth > 550) {
+            carrousselIdBase.style.width = "110%";
+        } else {
+            carrousselIdBase.style.width = "90%";
+        }
+    }
+
+    cards.forEach((card, index) => {
+        card.style.display = index < totalCards ? "flex" : "none";
+        // Adicionar ou remover a classe day2
+        card.classList.toggle("day2", isDayTwo);
+        card.classList.toggle("day1", !isDayTwo);
+    });
+};
+
+// Atualiza o carrossel ao carregar a página
+updateVisibleCards();
+
+// Adiciona um ouvinte de evento para mudanças no tamanho da tela
+window.addEventListener("resize", updateVisibleCards);
+
 
     // Alternar entre os dias
     toggleButton.addEventListener("change", () => {
         isDayTwo = toggleButton.checked;
         dayLabel.textContent = isDayTwo ? "Dia2" : "Dia1";
         updateVisibleCards();
+
+        // Ajuste do estilo do carrossel para o Dia 2 em modo desktop
+        const isDesktopMode = window.innerWidth >= 1280;
+        if (isDesktopMode && isDayTwo) {
+            carouselContainer.classList.add("dia2-style");
+        } else {
+            carouselContainer.classList.remove("dia2-style");
+        }
     });
+
 
     // Ajuste inicial dos cards
     updateVisibleCards();
@@ -121,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Ajuste inicial do carrossel
     adjustCarousel();
-    
+
     // Função para abrir e fechar o fullscreen
     function openFullscreen(image) {
         const overlay = document.querySelector(".fullscreen-overlay");

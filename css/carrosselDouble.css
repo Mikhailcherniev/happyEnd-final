@@ -1,3 +1,4 @@
+
 .projetosTitle{
     display: flex;
 }
@@ -106,8 +107,11 @@ input:checked + .slider:before {
     transform: translateX(26px);
 }
 
-.caroussel-container {
+#carrousselIdBase {
     width: 90%;
+}
+
+.caroussel-container {
     height: 90vh;
     display: flex;
     flex-wrap: nowrap;
@@ -291,13 +295,15 @@ input:checked + label .description {
 @media (max-width: 550px) {
     .caroussel-container {
         overflow: hidden;
-        width: 80%;
         height: auto;
         display: flex;
         flex-wrap: nowrap;
         scroll-snap-type: x mandatory;
     }
 
+    #carrousselIdBase {
+        width: 90%;
+    }
     .card {
         flex: 0 0 100%;
         aspect-ratio: 2 / 3;
