@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const carouselContainer = document.querySelector(".caroussel-container");
     const cards = document.querySelectorAll(".card");
     let currentIndex = 0;
-    let autoScrollInterval;
 
     const isDesktop = () => window.innerWidth >= 1280;
     const isMediumScreen = () => window.innerWidth >= 550 && window.innerWidth < 800;
@@ -21,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function setupThreeCards() {
-        stopAutoScroll();
         carouselContainer.scrollLeft = 0; 
 
         const controlsContainer = document.querySelector(".carousel-controls");
@@ -29,7 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function setupSingleCard() {
-        startAutoScroll();
         createControls();
     }
 
@@ -56,20 +53,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function navigateCarousel(direction) {
-        const cardWidth = cards[0].offsetWidth; // Usando a largura real do card
+        const cardWidth = cards[0].offsetWidth; 
         currentIndex = (currentIndex + direction + cards.length) % cards.length;
 
         const offset = currentIndex * cardWidth;
         carouselContainer.scrollTo({ left: offset, behavior: "smooth" });
-    }
-
-    function startAutoScroll() {
-        stopAutoScroll();
-        autoScrollInterval = setInterval(() => navigateCarousel(1), 150000); // 15 segundos
-    }
-
-    function stopAutoScroll() {
-        clearInterval(autoScrollInterval);
     }
 
     const toggleImagesBtn = document.getElementById("toggleImagesBtn");

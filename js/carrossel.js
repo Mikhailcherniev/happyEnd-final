@@ -5,66 +5,35 @@ document.addEventListener("DOMContentLoaded", () => {
     const dayLabel = document.getElementById("dayLabel");
     let isDayTwo = false;
 
-    // Criar o overlay no primeiro card
-    const firstCard = cards[0];
-    const instructionOverlay = document.createElement("div");
-    instructionOverlay.className = "instruction-overlay";
-    instructionOverlay.innerHTML = `  
-        <p>Clique nos cards para visualizar</p><br>
-        <p>Clique duas vezes para ativar o modo de tela cheia</p>
-    `;
-    firstCard.appendChild(instructionOverlay);
-    firstCard.classList.add("highlight");
-
-    // Remover destaque e instruções após interação
-    const removeInstructions = () => {
-        if (instructionOverlay) {
-            instructionOverlay.remove();
-        }
-        firstCard.classList.remove("highlight");
-    };
-
-    // Adicionar evento de clique em todos os cards
-    cards.forEach(card => {
-        card.addEventListener("click", removeInstructions);
-    });
-
     const carrousselIdBase = document.getElementById("carrousselIdBase");
 
-const updateVisibleCards = () => {
-    const totalCards = isDayTwo ? 8 : 6;
+    const updateVisibleCards = () => {
+        const totalCards = isDayTwo ? 8 : 6;
 
-    // Atualiza a largura do carrousselIdBase com base no dia e largura da tela
-    if (carrousselIdBase) {
-        if (isDayTwo && window.innerWidth > 550) {
-            carrousselIdBase.style.width = "110%";
-        } else {
-            carrousselIdBase.style.width = "90%";
+        if (carrousselIdBase) {
+            if (isDayTwo && window.innerWidth > 550) {
+                carrousselIdBase.style.width = "110%";
+            } else {
+                carrousselIdBase.style.width = "90%";
+            }
         }
-    }
 
-    cards.forEach((card, index) => {
-        card.style.display = index < totalCards ? "flex" : "none";
-        // Adicionar ou remover a classe day2
-        card.classList.toggle("day2", isDayTwo);
-        card.classList.toggle("day1", !isDayTwo);
-    });
-};
+        cards.forEach((card, index) => {
+            card.style.display = index < totalCards ? "flex" : "none";
+            card.classList.toggle("day2", isDayTwo);
+            card.classList.toggle("day1", !isDayTwo);
+        });
+    };
 
-// Atualiza o carrossel ao carregar a página
-updateVisibleCards();
+    updateVisibleCards();
 
-// Adiciona um ouvinte de evento para mudanças no tamanho da tela
-window.addEventListener("resize", updateVisibleCards);
+    window.addEventListener("resize", updateVisibleCards);
 
-
-    // Alternar entre os dias
     toggleButton.addEventListener("change", () => {
         isDayTwo = toggleButton.checked;
         dayLabel.textContent = isDayTwo ? "Dia2" : "Dia1";
         updateVisibleCards();
 
-        // Ajuste do estilo do carrossel para o Dia 2 em modo desktop
         const isDesktopMode = window.innerWidth >= 1280;
         if (isDesktopMode && isDayTwo) {
             carouselContainer.classList.add("dia2-style");
@@ -73,11 +42,6 @@ window.addEventListener("resize", updateVisibleCards);
         }
     });
 
-
-    // Ajuste inicial dos cards
-    updateVisibleCards();
-
-    // Ajuste do carrossel para diferentes tamanhos de tela
     const isDesktop = () => window.innerWidth >= 1280;
     const isMediumScreen = () => window.innerWidth >= 550 && window.innerWidth < 800;
     const isMobile = () => window.innerWidth < 550;
@@ -87,20 +51,16 @@ window.addEventListener("resize", updateVisibleCards);
             setupThreeCards();
         } else if (isMobile()) {
             setupSingleCard();
-        } else {
-            stopAutoScroll();
         }
     }
 
     function setupThreeCards() {
-        stopAutoScroll();
         carouselContainer.scrollLeft = 0;
         const controlsContainer = document.querySelector(".carousel-controls");
         if (controlsContainer) controlsContainer.remove();
     }
 
     function setupSingleCard() {
-        startAutoScroll();
         createControls();
     }
 
@@ -127,29 +87,26 @@ window.addEventListener("resize", updateVisibleCards);
     }
 
     function navigateCarousel(direction) {
-        const cardWidth = cards[0].offsetWidth + 0; // Inclui a margem
-        carouselContainer.scrollBy({ left: cardWidth * direction, behavior: "smooth" });
+        const cardWidth = cards[0].offsetWidth;
+        const totalCards = isDayTwo ? 8 : 6;
+
+        // Identificar o índice atual do primeiro card visível
+        let visibleIndex = Math.round(carouselContainer.scrollLeft / cardWidth);
+
+        if (direction === 1) { // Next button
+            visibleIndex = visibleIndex >= totalCards - 1 ? 0 : visibleIndex + 1;
+        } else { // Prev button
+            visibleIndex = visibleIndex <= 0 ? totalCards - 1 : visibleIndex - 1;
+        }
+
+        // Mover o carrossel para o índice calculado
+        carouselContainer.scrollTo({ left: visibleIndex * cardWidth, behavior: "smooth" });
     }
 
-    let autoScrollInterval;
-
-    function startAutoScroll() {
-        autoScrollInterval = setInterval(() => {
-            navigateCarousel(1);
-        }, 3000);
-    }
-
-    function stopAutoScroll() {
-        clearInterval(autoScrollInterval);
-    }
-
-    // Listener para ajustar o carrossel ao redimensionar a janela
     window.addEventListener("resize", adjustCarousel);
 
-    // Ajuste inicial do carrossel
     adjustCarousel();
 
-    // Função para abrir e fechar o fullscreen
     function openFullscreen(image) {
         const overlay = document.querySelector(".fullscreen-overlay");
         overlay.classList.add("active");
@@ -162,7 +119,6 @@ window.addEventListener("resize", updateVisibleCards);
         overlay.classList.remove("active");
     }
 
-    // Abrir em fullscreen ao clicar duas vezes na imagem do card
     cards.forEach(card => {
         card.addEventListener("dblclick", () => {
             const image = card.querySelector("img");
@@ -170,6 +126,5 @@ window.addEventListener("resize", updateVisibleCards);
         });
     });
 
-    // Fechar fullscreen
     document.querySelector(".close-fullscreen").addEventListener("click", closeFullscreen);
 });

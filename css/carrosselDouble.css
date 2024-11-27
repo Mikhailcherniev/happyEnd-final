@@ -301,9 +301,7 @@ input:checked + label .description {
         scroll-snap-type: x mandatory;
     }
 
-    #carrousselIdBase {
-        width: 90%;
-    }
+    
     .card {
         flex: 0 0 100%;
         aspect-ratio: 2 / 3;
